@@ -21,10 +21,11 @@ module.exports = (on, config) => {
 Adicione o suporte a arquivos de feature em sua configuração do Cypress:
 
 `cypress.json`
-
+```json
 {
   "testFiles": "**/*.feature"  
 }
+```
 
 ### Configuração:
 Por favor, faça uso de cosmiconfig para criar uma configuração para o plugin, por exemplo, adicionando a seção abaixo ao seu package.json:
