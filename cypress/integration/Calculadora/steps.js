@@ -1,22 +1,44 @@
-import { Given, And, When, Then } from 'cypress-cucumber-preprocessor/steps';
-import * as user from './actions';
+When(/^desejo realizar uma "([^"]*)"$/, (operacaoDesejada) => {
+  let operador;
 
-Given(/^que eu acesso a calculadora$/, () => {
-  user.openTheCalculator()
+  switch (operacaoDesejada) {
+    case 'soma':
+      operador = '+'
+      break;
+    case 'subtração':
+      operador = '-'
+      break;
+    case 'multiplicação':
+      operador = 'x'
+      break;
+    case 'divisão':
+      operador = '÷'
+      break;
+    default:
+      break;
+  }
+
+  cy.log(operador)
+  Cypress.env('operador', operador);
 });
 
-And(`desejo realizar uma {string}`, (operacao) => {
-  user.defineOperationAs(operacao)
-});
+When(/^informar os valores "([^"]*)" e "([^"]*)"$/, (primeiroValor, segundoValor) => {
+  cy.get('div[class=button], .button.zero').as('valores');
+  cy.get('.operator').as('operadores')
 
-When(/^informar os valores$/, () => {
-  user.fillValues()
+  cy.get('@valores').contains(primeiroValor).click();
+  cy.get('@operadores').contains(`${Cypress.env('operador')}`).click();
+  cy.get('@valores').contains(segundoValor).click();
 });
 
 When(/^finalizar a conta$/, () => {
-  user.finishOperation()
+  cy.get('@operadores').contains('=').click();
 });
 
-Then(/^devo obter o resultado$/, () => {
-  user.shouldSeeTheExpectedResult()
+Then(/^devo obter o resultado "([^"]*)"$/, (resultadoEsperado) => {
+  cy.get('.display').as('resultado')
+
+  cy.get('@resultado')
+    .invoke('text')
+    .should('be.equal', String(resultadoEsperado))
 });
