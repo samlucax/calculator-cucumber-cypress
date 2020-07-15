@@ -74,7 +74,7 @@ Os arquivos de feature irão utilizar os passos definidos nos arquivos que estiv
 
 Apenas para ilustrar: Google.feature -> Google/Google.steps.js
 
-> Cuke Step Definition Generator
-> https://github.com/TheBrainFamily/cypress-cucumber-preprocessor/issues/370
+## Cuke Step Definition Generator
 - Botão direito nos steps > Generate step defs > Copy to clipboard
-# calculator-cucumber-cypress
+
+> https://github.com/TheBrainFamily/cypress-cucumber-preprocessor/issues/370
